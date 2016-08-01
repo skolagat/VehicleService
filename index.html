@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="scripts/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+    <input type="text" id="searchID" />
+    <button onclick="searchVehicle()" >Search</button>
+    <button onclick="addVehicle()">Add</button>
+    <button onclick="putVehicle()">Put</button>
+    <button onclick="deleteVehicle()">Delete</button>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON("api/Vehicle", function (result) {
+                console.info(result);
+            });
+        });
+        function searchVehicle()
+        {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "api/Vehicle/" + $("#searchID").val(),
+                success: function (result) {
+                    console.info(result);
+                }
+            });
+
+        }
+
+        function deleteVehicle() {
+            
+            $.ajax({
+                type: "DELETE",
+                dataType: "json",
+                url: "api/Vehicle/1",
+                data: deleteVehicle,
+                success: function (result) {
+                    console.info(result);
+                }
+            });
+        }
+
+        function putVehicle()
+        {
+            var changeVehicle = {
+              
+                "Year": 2015,
+                "Make": "Ford",
+                "Model": "Mustang"
+            }
+            $.ajax({
+                type: "PUT",
+                dataType: "json",
+                url: "api/Vehicle/1",
+                data: changeVehicle,
+                success: function (result) {
+                    console.info(result);
+                }
+            });
+        }
+        function addVehicle()
+        {
+            var newVehicle={
+                "Id":3,
+                "Year":2015,
+                "Make":"Tesla",
+                "Model": "S"
+
+            }
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "api/Vehicle/",
+                data: newVehicle,
+                success: function (result) {
+                    console.info(result);
+                }
+            });
+
+        }
+    </script>
+</body>
+</html>
